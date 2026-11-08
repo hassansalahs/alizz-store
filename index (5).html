@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مركز العز للإلكترونيات</title>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f7fa;--surface:#fff;--ink:#14243f;--muted:#5a6b85;--line:#d9e0ea;--brand:#14243f;--brand-ink:#fff;--gold:#b98418;--gold-soft:#f3e7c9}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1626;--surface:#15233b;--ink:#eef2f8;--muted:#9fb0c9;--line:#27384f;--brand:#e3b650;--brand-ink:#14243f;--gold:#e3b650;--gold-soft:#2c2a1f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;line-height:1.7;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header{padding:18px 0}
+.logo{font-family:"Reem Kufi",serif;font-size:26px;font-weight:700}
+.logo span{color:var(--gold)}
+.hero{padding:40px 0 34px;border-bottom:1px solid var(--line)}
+.hero h1{font-family:"Reem Kufi",serif;font-size:clamp(38px,9vw,72px);line-height:1.15;margin:0 0 12px}
+.hero p{max-width:34ch;color:var(--muted);font-size:19px;margin:0 0 22px}
+.btn{display:inline-block;background:var(--brand);color:var(--brand-ink);padding:12px 24px;border-radius:10px;text-decoration:none;font:700 17px "Tajawal",sans-serif;border:2px solid var(--brand);cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.red{background:transparent;color:#b3261e;border-color:#b3261e;padding:6px 14px;font-size:15px}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section{padding:34px 0}
+h2{font-family:"Reem Kufi",serif;font-size:30px;margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:20px;padding:6px 16px;font:500 16px "Tajawal",sans-serif;cursor:pointer}
+.chip.on{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.card img,.noimg{width:100%;aspect-ratio:1;object-fit:cover;background:var(--gold-soft)}
+.card .b{padding:14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{margin:0;font-size:18px}
+.card .d{color:var(--muted);font-size:14px;margin:0}
+.price{color:var(--gold);font-weight:700;font-size:18px}
+.card .btn{margin-top:auto;text-align:center;padding:8px;font-size:15px}
+.soldout{opacity:.55}
+.empty{color:var(--muted);padding:30px;border:1px dashed var(--line);border-radius:12px;text-align:center;grid-column:1/-1}
+#admin{display:none;background:var(--surface);border:2px solid var(--gold);border-radius:14px;padding:22px;margin:24px 0}
+#admin label{display:block;font-weight:700;margin:12px 0 4px}
+#admin input,#admin select,#admin textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:17px "Tajawal",sans-serif}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.row img{width:48px;height:48px;object-fit:cover;border-radius:8px}
+.row b{flex:1;min-width:100px}
+#msg{margin-top:10px;font-weight:700;color:var(--gold)}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted)}
+footer .big{color:var(--ink);font-weight:700;font-size:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="logo">مركز <span>العز</span></div></header>
+  <div class="hero">
+    <h1>مركز العز<br>للإلكترونيات</h1>
+    <p>موبايلات، إكسسوارات، وأجهزة أصلية بأسعار واضحة وضمان حقيقي.</p>
+    <a class="btn wa-main" href="#">اطلب عبر واتساب</a>
+  </div>
+
+  <div id="admin">
+    <h2>لوحة التحكم</h2>
+    <div id="loginBox">
+      <label>الإيميل</label><input id="email" type="email" autocomplete="username">
+      <label>كلمة السر</label><input id="pass" type="password" autocomplete="current-password">
+      <p><button class="btn" id="loginBtn">دخول</button></p>
+    </div>
+    <div id="panel" style="display:none">
+      <label>اسم المنتج</label><input id="fName">
+      <label>القسم</label><select id="fCat"></select>
+      <label>السعر (دينار عراقي)</label><input id="fPrice" inputmode="numeric">
+      <label>وصف قصير (اختياري)</label><textarea id="fDesc" rows="2"></textarea>
+      <label>صورة المنتج</label><input id="fImg" type="file" accept="image/*">
+      <p><button class="btn" id="addBtn">أضف المنتج</button></p>
+      <label>رقم الواتساب (مثال: 9647701234567)</label><input id="fPhone" inputmode="numeric">
+      <p><button class="btn alt" id="phoneBtn">احفظ الرقم</button>
+      <button class="btn alt" id="outBtn">خروج</button></p>
+      <h2 style="margin-top:22px">منتجاتك</h2>
+      <div id="list"></div>
+    </div>
+    <div id="msg"></div>
+  </div>
+
+  <section>
+    <h2>المنتجات</h2>
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+</div>
+<footer><div class="wrap"><div class="big">مركز العز للإلكترونيات</div><p>بغداد، العراق</p></div></footer>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,collection,addDoc,getDocs,deleteDoc,updateDoc,doc,setDoc,getDoc,query,orderBy} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* ===== الصق إعدادات Firebase هنا (بين الأقواس) ===== */
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  appId: ""
+};
+/* ================================================== */
+
+const CATS=["موبايلات","إكسسوارات","شواحن وكابلات","سماعات وسبيكرات","تابلت وأجهزة","صيانة"];
+let products=[],phone="",cur="الكل",db=null,auth=null;
+const $=i=>document.getElementById(i);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const say=t=>$("msg").textContent=t;
+const wa=m=>phone?"https://wa.me/"+phone+"?text="+encodeURIComponent(m):"#";
+const fmt=n=>Number(n).toLocaleString("ar-IQ")+" د.ع";
+
+function render(){
+  const chips=$("chips");chips.textContent="";
+  ["الكل",...CATS].forEach(c=>{const b=el("button","chip"+(c===cur?" on":""),c);b.onclick=()=>{cur=c;render()};chips.appendChild(b)});
+  const g=$("grid");g.textContent="";
+  const items=products.filter(p=>cur==="الكل"||p.cat===cur);
+  if(!items.length)g.appendChild(el("div","empty","لا توجد منتجات في هذا القسم حالياً."));
+  items.forEach(p=>{
+    const c=el("div","card"+(p.out?" soldout":""));
+    if(p.img){const im=el("img");im.src=p.img;im.alt=p.name;c.appendChild(im)}else c.appendChild(el("div","noimg"));
+    const b=el("div","b");b.appendChild(el("h3",0,p.name));
+    if(p.desc)b.appendChild(el("p","d",p.desc));
+    if(p.price)b.appendChild(el("div","price",fmt(p.price)));
+    const a=el("a","btn",p.out?"غير متوفر":"اطلب الآن");
+    if(!p.out)a.href=wa("أريد طلب: "+p.name);
+    b.appendChild(a);c.appendChild(b);g.appendChild(c)});
+  document.querySelector(".wa-main").href=wa("مرحبا، أريد الاستفسار عن منتجاتكم");
+  const l=$("list");l.textContent="";
+  products.forEach(p=>{
+    const r=el("div","row");
+    if(p.img){const im=el("img");im.src=p.img;r.appendChild(im)}
+    r.appendChild(el("b",0,p.name));
+    const t=el("button","btn alt",p.out?"رجّعه متوفر":"خلّه غير متوفر");t.style.padding="6px 14px";
+    t.onclick=async()=>{await updateDoc(doc(db,"alizz_products",p.id),{out:!p.out});load()};
+    const d=el("button","btn red","احذف");
+    d.onclick=async()=>{if(confirm("تحذف "+p.name+"؟")){await deleteDoc(doc(db,"alizz_products",p.id));load()}};
+    r.append(t,d);l.appendChild(r)});
+}
+
+async function load(){
+  const s=await getDocs(query(collection(db,"alizz_products"),orderBy("ts","desc")));
+  products=s.docs.map(d=>({id:d.id,...d.data()}));
+  try{const p=await getDoc(doc(db,"alizz_settings","main"));if(p.exists())phone=p.data().phone||""}catch(e){}
+  render();
+}
+
+function shrink(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
+  const s=Math.min(1,500/Math.max(im.width,im.height)),c=document.createElement("canvas");
+  c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+  c.getContext("2d").drawImage(im,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",0.7))};im.src=r.result};r.readAsDataURL(file)})}
+
+CATS.forEach(c=>{const o=el("option",0,c);o.value=c;$("fCat").appendChild(o)});
+render();
+
+if(!firebaseConfig.apiKey){
+  say("الموقع غير مربوط بقاعدة البيانات بعد.");
+  if(location.hash==="#admin")$("admin").style.display="block";
+}else{
+  const app=initializeApp(firebaseConfig);db=getFirestore(app);auth=getAuth(app);
+  load().catch(()=>{});
+  if(location.hash==="#admin")$("admin").style.display="block";
+  onAuthStateChanged(auth,u=>{$("loginBox").style.display=u?"none":"block";$("panel").style.display=u?"block":"none";if(u){$("fPhone").value=phone;say("")}});
+  $("loginBtn").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("pass").value)}catch(e){say("الإيميل أو كلمة السر غلط")}};
+  $("outBtn").onclick=()=>signOut(auth);
+  $("addBtn").onclick=async()=>{
+    const n=$("fName").value.trim();if(!n){say("اكتب اسم المنتج أولاً");return}
+    say("جاري الحفظ...");
+    const p={name:n,cat:$("fCat").value,price:Number($("fPrice").value.replace(/[^0-9]/g,""))||0,desc:$("fDesc").value.trim(),img:"",out:false,ts:Date.now()};
+    const f=$("fImg").files[0];if(f)p.img=await shrink(f);
+    try{await addDoc(collection(db,"alizz_products"),p);["fName","fPrice","fDesc","fImg"].forEach(i=>$(i).value="");say("تمت الإضافة");load()}
+    catch(e){say("ما انحفظ. تأكد من القواعد (Rules) في Firebase")}};
+  $("phoneBtn").onclick=async()=>{
+    phone=$("fPhone").value.replace(/[^0-9]/g,"");
+    try{await setDoc(doc(db,"alizz_settings","main"),{phone});say("انحفظ الرقم");render()}catch(e){say("ما انحفظ الرقم")}};
+}
+</script>
+</body>
+</html>
